@@ -53,20 +53,21 @@ function deepEquals(a, b) {
 var equals = environment();
 
 equals = equals
+    .property('deepEquals', deepEquals)
     .method('equals', helpers.isArray, function(a, b) {
         return arrayEquals(Seq.fromArray(a), Seq.fromArray(b));
     })
     .method('equals', helpers.isBoolean, function(a, b) {
-        return deepEquals(a, b);
+        return a === b;
     })
     .method('equals', helpers.isNumber, function(a, b) {
-        return deepEquals(a, b);
+        return a === b;
     })
     .method('equals', helpers.isObject, function(a, b) {
         return objectEquals(a, b);
     })
     .method('equals', helpers.isString, function(a, b) {
-        return deepEquals(a, b);
+        return a === b;
     });
 
 if (typeof module != 'undefined')

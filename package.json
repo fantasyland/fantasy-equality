@@ -1,6 +1,6 @@
 {
   "name": "fantasy-equality",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Monadic JSON manipulation",
   "repository": {
     "type": "git",
