@@ -50,6 +50,22 @@ function deepEquals(a, b) {
     return false;
 }
 
+function strictEquals(a, b) {
+    return helpers.strictEquals(a)(b);
+}
+
+function isNaN(a) {
+    return typeof a === 'number' ? (a * 0) !== 0 : true;
+}
+
+function isNull(a) {
+    return strictEquals(a, null);
+}
+
+function isUndefined(a) {
+    return strictEquals(a, void(0));
+}
+
 var equals = environment();
 
 equals = equals
@@ -57,18 +73,15 @@ equals = equals
     .method('equals', helpers.isArray, function(a, b) {
         return arrayEquals(Seq.fromArray(a), Seq.fromArray(b));
     })
-    .method('equals', helpers.isBoolean, function(a, b) {
-        return a === b;
-    })
-    .method('equals', helpers.isNumber, function(a, b) {
-        return a === b;
-    })
+    .method('equals', helpers.isBoolean, strictEquals)
+    .method('equals', helpers.isNumber, strictEquals)
     .method('equals', helpers.isObject, function(a, b) {
         return objectEquals(a, b);
     })
-    .method('equals', helpers.isString, function(a, b) {
-        return a === b;
-    });
+    .method('equals', helpers.isString, strictEquals)
+    .method('equals', isNaN, strictEquals)
+    .method('equals', isNull, strictEquals)
+    .method('equals', isUndefined, strictEquals);
 
 if (typeof module != 'undefined')
     module.exports = equals;
