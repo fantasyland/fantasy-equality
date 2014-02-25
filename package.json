@@ -1,0 +1,39 @@
+{
+  "name": "fantasy-equality",
+  "version": "0.0.1",
+  "description": "Monadic JSON manipulation",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/fantasyland/fantasy-equality.git"
+  },
+  "keywords": [
+    "fantasyland",
+    "identity",
+    "monad"
+  ],
+  "author": "Simon Richardson",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/fantasyland/fantasy-equality/issues"
+  },
+  "dependencies": {
+    "fantasy-helpers": "0.x.x",
+    "fantasy-seqs": "0.x.x",
+    "fantasy-environment": "0.x.x"
+  },
+  "devDependencies": {
+    "grunt-cli": "0.1.9",
+    "grunt": "0.4.x",
+    "grunt-contrib-jshint": "0.6.x",
+    "grunt-contrib-nodeunit": "0.2.0",
+    "fantasy-check": "0.1.6"
+  },
+  "scripts": {
+      "test": "grunt"
+  },
+  "files": [
+      "fantasy-equality.js", 
+      "src/*.js"
+  ],
+  "main": "fantasy-equality.js"
+}
