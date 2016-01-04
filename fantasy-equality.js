@@ -1,4 +1,6 @@
-var Equality = require('./src/equality');
+'use strict';
+
+const Equality = require('./src/equality');
 
 if (typeof module != 'undefined')
     module.exports = Equality;
