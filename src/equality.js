@@ -5,7 +5,7 @@ const {Seq} = require('fantasy-seqs');
 const environment = require('fantasy-environment');
 
 function arrayEquals(a, b, f) {
-    var g = f || strictEquals;
+    const g = f || strictEquals;
     return a.zip(b).fold(true, (a, b) => a && g(b._1)(b._2));
 }
 
@@ -26,9 +26,9 @@ function deepEquals(a, b) {
     const type = typeof a;
 
     if (strictEquality(a, b)) return true;
-    else if (!isNull(a) || (isNull(b) || isUndefined(b))) return false;
     else if (type !== typeof b) return false;
     else if (type === 'NaN') return isNaN(a) && isNaN(b);
+    else if (!isNull(a) && isNull(b)) return false;
     else if (isNull(a) || (type !== 'object' && type !== 'function')) return a === b;
     else if (type === 'function') return a.constructor === b.constructor;
     else if (isArray(a) && isArray(b)) {
@@ -51,6 +51,10 @@ function isNaN(a) {
     return typeof a === 'number' ? (a * 0) !== 0 : true;
 }
 
+function isNullOrUndefined(a) {
+    return isNull(a) || isUndefined(a);
+}
+
 function isNull(a) {
     return strictEquality(a, null);
 }
@@ -63,12 +67,12 @@ const equals = environment();
 const equalsʹ = equals
     .property('deepEquals', deepEquals)
     .method('equals', isArray, function(a, b) {
-        return arrayEquals(Seq.fromArray(a), Seq.fromArray(b));
+        return !isNullOrUndefined(b) && arrayEquals(Seq.fromArray(a), Seq.fromArray(b));
     })
     .method('equals', isBoolean, strictEquality)
     .method('equals', isNumber, strictEquality)
     .method('equals', isObject, function(a, b) {
-        return !isNull(a) && objectEquals(a, b);
+        return !isNull(a) && !isNullOrUndefined(b) && objectEquals(a, b);
     })
     .method('equals', isString, strictEquality)
     .method('equals', isNaN, strictEquality)
